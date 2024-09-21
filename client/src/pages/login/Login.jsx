@@ -4,6 +4,7 @@ import { AuthContext } from "../../authContext/AuthContext";
 import "./login.scss";
 import { Link } from "react-router-dom";
 
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,18 +12,16 @@ export default function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    login({ email, password }, dispatch);
+    const user = { email, password }; 
+    login(user, dispatch); 
   };
+
   return (
     <div className="login">
       <div className="top">
         <div className="wrapper">
           <Link to="/register">
-            <img
-              className="logo"
-              src="/netflix.png"
-              alt=""
-            />
+            <img className="logo" src="/netflix.png" alt="" />
           </Link>
         </div>
       </div>

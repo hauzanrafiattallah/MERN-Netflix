@@ -23,7 +23,7 @@ export default function Register() {
     setPassword(passwordRef.current.value);
     setUsername(usernameRef.current.value);
     try {
-      await axios.post("auth/register", { email, username, password });
+      await axios.post("/auth/register", { email, username, password });
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -34,11 +34,7 @@ export default function Register() {
     <div className="register">
       <div className="top">
         <div className="wrapper">
-          <img
-            className="logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
-            alt=""
-          />
+          <img className="logo" src="/netflix.png" alt="" />
           <Link to="/login">
             <button className="loginButton">Login</button>
           </Link>
