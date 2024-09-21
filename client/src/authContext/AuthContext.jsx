@@ -16,16 +16,16 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(state.user));
   }, [state.user]);
 
-  return React.createElement(
-    AuthContext.Provider,
-    {
-      value: {
+  return (
+    <AuthContext.Provider
+      value={{
         user: state.user,
         isFetching: state.isFetching,
         error: state.error,
         dispatch,
-      },
-    },
-    children
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };
