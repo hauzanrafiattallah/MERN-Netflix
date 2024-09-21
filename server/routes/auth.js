@@ -5,21 +5,28 @@ const jwt = require("jsonwebtoken");
 
 //REGISTER
 router.post("/register", async (req, res) => {
-  const newUser = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: CryptoJS.AES.encrypt(
-      req.body.password,
-      process.env.SECRET_KEY
-    ).toString(),
-  });
+  const { username, email, password } = req.body;
+
+  // Validasi agar username, email, dan password tidak kosong
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
   try {
-    const user = await newUser.save();
-    res.status(201).json(user);
+    const newUser = new User({
+      username, // pastikan username tidak null
+      email,
+      password: CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString(),
+    });
+    const savedUser = await newUser.save();
+    res.status(201).json(savedUser);
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+
 
 //LOGIN
 router.post("/login", async (req, res) => {

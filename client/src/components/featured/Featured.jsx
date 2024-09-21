@@ -12,10 +12,10 @@ export default function Featured({ type, setGenre }) {
         const res = await axios.get(`/movies/random?type=${type}`, {
           headers: {
             token:
-              "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+              "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
           },
         });
-        setContent(res.data[0]);
+        setContent(res.data[0]); // Asumsikan API mengembalikan array
       } catch (err) {
         console.log(err);
       }
@@ -23,7 +23,8 @@ export default function Featured({ type, setGenre }) {
     getRandomContent();
   }, [type]);
 
-  console.log(content);
+  console.log(content); // Pastikan untuk memeriksa apakah data diterima dengan benar
+  
   return (
     <div className="featured">
       {type && (
@@ -51,10 +52,19 @@ export default function Featured({ type, setGenre }) {
           </select>
         </div>
       )}
-      <img src={content.img} alt="" />
+
+      {/* Tambahkan pengecekan apakah content.img ada */}
+      {content?.img ? (
+        <img src={content.img} alt={content.title || "Featured Image"} />
+      ) : (
+        <p>No image available</p> // Placeholder jika img tidak ada
+      )}
+
       <div className="info">
-        <img src={content.imgTitle} alt="" />
-        <span className="desc">{content.desc}</span>
+        {/* Pengecekan untuk imgTitle dan desc */}
+        {content?.imgTitle && <img src={content.imgTitle} alt={content.title || "Title Image"} />}
+        {content?.desc && <span className="desc">{content.desc}</span>}
+
         <div className="buttons">
           <button className="play">
             <PlayArrow />
