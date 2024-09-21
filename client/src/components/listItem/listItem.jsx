@@ -20,7 +20,7 @@ export default function ListItem({ index }) {
       <img src="jhonWick.jpeg" alt="" />
       {isHovered && (
         <>
-          <video src={trailer} autoPlay={true} loop muted />
+          <video src={trailer} autoPlay={true} loop />
           <div className="itemInfo">
             <div className="icons">
               <PlayArrow className="icon" />
