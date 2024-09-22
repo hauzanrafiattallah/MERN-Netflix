@@ -5,16 +5,16 @@ const jwt = require("jsonwebtoken");
 
 //REGISTER
 router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { userName, email, password } = req.body;
 
   // Validasi agar username, email, dan password tidak kosong
-  if (!username || !email || !password) {
+  if (!userName || !email || !password) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
     const newUser = new User({
-      username, // pastikan username tidak null
+      userName, // pastikan username tidak null
       email,
       password: CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString(),
     });
